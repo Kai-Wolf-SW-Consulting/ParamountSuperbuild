@@ -15,6 +15,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(BUILD_BOOST "Build with Boost library" ON)
 option(BUILD_QT "Build with Qt5 framework" ON)
 option(BUILD_GTEST "Build with GTest library" ON)
+option(BUILD_PARAMOUNT "Build the Paramount application" ON)
 
 set(ParamountSuperbuild_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 set(ParamountSuperbuild_DEFAULT_ARGS
@@ -37,4 +38,9 @@ endif()
 
 if(BUILD_GTEST)
   include(External_GTest)
+endif()
+
+# Now including the actual Paramount project
+if(BUILD_PARAMOUNT)
+  include(External_Paramount)
 endif()
