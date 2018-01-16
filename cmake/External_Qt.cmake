@@ -1,31 +1,24 @@
-# Prepend |prefix| for each list element
-function(prepend var prefix)
-  set(listvar "")
-  foreach(f ${ARGN})
-    list(APPEND listvar "${prefix}${f}")
-  endforeach()
-  set(${var} ${listvar} PARENT_SCOPE)
-endfunction()
-
 set(qt_with_args
   -opensource -confirm-license -release -static -optimized-qmake
   -no-compile-examples -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype
   -qt-pcre -qt-xcb -qt-xkbcommon -no-directfb -no-linuxfb)
 
 set(qt_skip_modules
-  qtactiveqt qtandroidextras qtcanvas3d qtcharts qtconnectivity qtdatavis3d
-  qtdeclarative qtdoc qtgamepad qtgraphicaleffects qtimageformats qtlocation
-  qtmacextras qtmultimedia qtnetworkauth qtpurchasing qtquickcontrols
-  qtquickcontrols2 qtremoteobjects qtscript qtscxml qtsensors qtserialbus
-  qtserialport qtspeech qtsvg qttools qttranslations qtvirtualkeyboard
-  qtwayland qtwebchannel qtwebengine qtwebglplugin qtwebsockets qtwebview
-  qtwinextras qtx11extras qtxmlpatterns)
-prepend(qt_skip_modules "-skip " ${qt_skip_modules})
+  -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts
+  -skip qtconnectivity -skip qtdatavis3d -skip qtdeclarative -skip qtdoc
+  -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats
+  -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth
+  -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2
+  -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors
+  -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtsvg -skip qttools
+  -skip qttranslations -skip qtvirtualkeyboard -skip qtwayland
+  -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin -skip qtwebsockets
+  -skip qtwebview -skip qtwinextras -skip qtx11extras -skip qtxmlpatterns)
 
 set(qt_skip_features
-  accessibility graphicseffect graphicsview lcdnumber regularexpression
-  syntaxhighlighter textedit validator)
-prepend(qt_skip_features "-no-feature-" ${qt_skip_features})
+  -no-feature-accessibility -no-feature-graphicseffect -no-feature-lcdnumber
+  -no-feature-regularexpression -no-feature-syntaxhighlighter
+  -no-feature-textedit -no-feature-validator)
 
 ExternalProject_Add(qt5
   URL ${qt_url}
