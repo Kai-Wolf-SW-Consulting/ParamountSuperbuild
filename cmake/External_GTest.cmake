@@ -7,3 +7,9 @@ ExternalProject_Add(gtest
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
     -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
     -Dgtest_force_shared_crt=ON)
+
+ExternalProject_Get_Property(gtest install_dir)
+set(GTEST_ROOT ${install_dir} CACHE INTERNAL "")
+
+list(APPEND ParamountSuperbuild_THIRDPARTYLIBS_ARGS
+  -DGTEST_ROOT:PATH=${GTEST_ROOT})

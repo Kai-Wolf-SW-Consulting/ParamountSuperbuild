@@ -20,13 +20,9 @@ else()
 endif()
 
 set(boost_with_args
-  --with-date_time
   --with-filesystem
-  --with-iostreams
-  --with-program_options
   --with-system
-  --with-thread
-  --with-chrono)
+  --with-thread)
 
 if(use_bat)
   if(MSVC90)
@@ -64,9 +60,8 @@ ExternalProject_Get_Property(boost install_dir)
 set(BOOST_ROOT ${install_dir} CACHE INTERNAL "")
 
 list(APPEND ParamountSuperbuild_THIRDPARTYLIBS_ARGS
-# Add Boost properties so correct version of Boost is found.
+  # Add Boost properties so correct version of Boost is found.
   -DBOOST_ROOT:PATH=${BOOST_ROOT}
   -DBoost_INCLUDE_DIR:PATH=${BOOST_ROOT}/include
   -DBOOST_LIBRARYDIR:PATH=${BOOST_ROOT}/lib
-  -DBoost_NO_SYSTEM_PATHS=ON)
-
+  -DBoost_NO_SYSTEM_PATHS:BOOL=ON)

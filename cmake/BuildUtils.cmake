@@ -1,0 +1,22 @@
+# Write out values into an initial cache, that will be passed to CMake with -C
+function(write_cmake_cache_file script_filename args)
+  set(script_initial_cache "")
+  set(regex "^([^:]+):([^=]+)=(.*)$")
+  foreach(line ${args})
+    string(REGEX REPLACE "^-D" "" line ${line})
+    if("${line}" MATCHES "${regex}")
+      string(REGEX MATCH "${regex}" match "${line}")
+      set(name "${CMAKE_MATCH_1}")
+      set(type "${CMAKE_MATCH_2}")
+      set(value "${CMAKE_MATCH_3}")
+      set(setArg "set(${name} \"${value}\" CACHE ${type} \"Initial cache\" FORCE)")
+      set(script_initial_cache "${script_initial_cache}\n${setArg}")
+    endif()
+  endforeach()
+
+  # Write out the initial cache file to the location specified.
+  if(NOT EXISTS "${script_filename}.in")
+    file(WRITE "${script_filename}.in" "@script_initial_cache@\n")
+  endif()
+  configure_file("${script_filename}.in" "${script_filename}")
+endfunction()

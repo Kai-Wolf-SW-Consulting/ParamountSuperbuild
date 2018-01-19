@@ -1,7 +1,9 @@
 set(qt_with_args
   -opensource -confirm-license -release -static -optimized-qmake
   -no-compile-examples -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype
-  -qt-pcre -qt-xcb -qt-xkbcommon -no-directfb -no-linuxfb)
+  -qt-pcre -qt-xcb -qt-xkbcommon -no-directfb -no-linuxfb -no-openssl
+  -no-cups -no-iconv -no-evdev -no-icu -no-dbus -no-qml-debug
+  -no-sql-sqlite -nomake examples -nomake tests)
 
 set(qt_skip_modules
   -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts
@@ -15,15 +17,13 @@ set(qt_skip_modules
   -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin -skip qtwebsockets
   -skip qtwebview -skip qtwinextras -skip qtx11extras -skip qtxmlpatterns)
 
-set(qt_skip_features
-  -no-feature-accessibility -no-feature-graphicseffect -no-feature-lcdnumber
-  -no-feature-regularexpression -no-feature-syntaxhighlighter
-  -no-feature-textedit -no-feature-validator)
-
 ExternalProject_Add(qt5
   URL ${qt_url}
   URL_MD5 ${qt_md5}
+  INSTALL_DIR ${ParamountSuperbuild_INSTALL_PREFIX}/qt5
   CONFIGURE_COMMAND ./configure --prefix=<INSTALL_DIR>
-    ${qt_with_args} ${qt_skip_modules} ${qt_skip_features}
+    ${qt_with_args} ${qt_skip_modules}
   BUILD_IN_SOURCE 1)
 
+list(APPEND ParamountSuperbuild_THIRDPARTYLIBS_ARGS
+  -DCMAKE_PREFIX_PATH:PATH=${ParamountSuperbuild_INSTALL_PREFIX}/qt5/lib/cmake/)
