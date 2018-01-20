@@ -14,11 +14,13 @@ include(Projects)
 
 # Set up a few default arguments for the following projects
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-option(BUILD_PARAMOUNT "Build the Paramount application" OFF)
+option(BUILD_PARAMOUNT "Build the Paramount application" ON)
+option(BUILD_TESTING "Build with tests" ON)
 
 set(ParamountSuperbuild_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
 set(ParamountSuperbuild_DEFAULT_ARGS
   -DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}
+  -DBUILD_TESTING:BOOL=${BUILD_TESTING}
   -DCMAKE_PREFIX_PATH:PATH=${ParamountSuperbuild_INSTALL_PREFIX};${CMAKE_PREFIX_PATH}
   -DCMAKE_INSTALL_PREFIX:PATH=${ParamountSuperbuild_INSTALL_PREFIX})
 
