@@ -14,7 +14,8 @@ include(Projects)
 
 # Set up a few default arguments for the following projects
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
-option(BUILD_PARAMOUNT "Build the Paramount application" ON)
+option(BUILD_PARAMOUNT_EXTPROJECT "Build the Paramount application as external project" ON)
+option(BUILD_PARAMOUNT_SUBPROJECT "Build the Paramount application as subproject" ON)
 option(BUILD_TESTING "Build with tests" ON)
 
 set(ParamountSuperbuild_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
@@ -32,11 +33,13 @@ endif()
 add_subdirectory(thirdparty)
 
 # Now including the actual Paramount project
-if(BUILD_PARAMOUNT)
-  if(Paramount_deps_installed)
-    include(${CMAKE_CURRENT_BINARY_DIR}/ParamountCache.cmake)
-    add_subdirectory(Paramount)
+if(BUILD_PARAMOUNT_SUBPROJECT)
+  if(NOT EXISTS ${paramount_cache_script})
+    message(WARNING "No initial cache file for Paramount found")
   else()
-    include(External_Paramount)
+    include(${paramount_cache_script})
   endif()
+  add_subdirectory(Paramount)
+elseif(BUILD_PARAMOUNT_EXTPROJECT)
+  include(External_Paramount)
 endif()
