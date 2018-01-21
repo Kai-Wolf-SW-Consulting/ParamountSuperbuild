@@ -33,12 +33,10 @@ add_subdirectory(thirdparty)
 
 # Now including the actual Paramount project
 if(BUILD_PARAMOUNT)
-  include(External_Paramount)
-else()
-  message(STATUS "Generating cache script for Paramount...")
-  set(cache_script ${CMAKE_CURRENT_BINARY_DIR}/ParamountCache.cmake)
-  set(cache_args ${ParamountSuperbuild_DEFAULT_ARGS}
-    ${ParamountSuperbuild_THIRDPARTYLIBS_ARGS})
-  write_cmake_cache_file("${cache_script}" "${cache_args}")
-  message(STATUS "Use 'cmake -C ${cache_script}' for configuring Paramount")
+  if(Paramount_deps_installed)
+    include(${CMAKE_CURRENT_BINARY_DIR}/ParamountCache.cmake)
+    add_subdirectory(Paramount)
+  else()
+    include(External_Paramount)
+  endif()
 endif()
