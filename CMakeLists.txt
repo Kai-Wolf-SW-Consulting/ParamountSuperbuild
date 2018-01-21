@@ -15,7 +15,7 @@ include(Projects)
 # Set up a few default arguments for the following projects
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(BUILD_PARAMOUNT_EXTPROJECT "Build the Paramount application as external project" ON)
-option(BUILD_PARAMOUNT_SUBPROJECT "Build the Paramount application as subproject" ON)
+option(BUILD_PARAMOUNT_SUBPROJECT "Build the Paramount application as subproject" OFF)
 option(BUILD_TESTING "Build with tests" ON)
 
 set(ParamountSuperbuild_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/install)
