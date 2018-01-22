@@ -4,7 +4,19 @@ set(qt_with_args
   -no-feature-movie -no-qml-debug -no-sql-db2 -no-sql-ibase
   -no-sql-mysql -no-sql-oci -no-sql-odbc -no-sql-psql -no-sql-sqlite2
   -no-sql-sqlite -no-sql-tds -no-journald -no-syslog -no-slog2 -opengl desktop
-  -no-ssl -no-openssl -no-securetransport -no-libproxy -no-sctp -c++std c++14)
+  -no-ssl -no-openssl -no-securetransport -no-libproxy -no-sctp)
+
+if(WIN32)
+  list(APPEND qt_with_args -platform win32-msvc)
+  find_program(NMAKE_EXECUTABLE NAMES nmake.exe)
+  include(FindPackageHandleStandardArgs)
+  find_package_handle_standard_args(nmake REQUIRED_VARS NMAKE_EXECUTABLE)
+  mark_as_advanced(NMAKE_EXECUTABLE)
+  
+  set(CMAKE_MAKE_PROGRAM ${NMAKE_EXECUTABLE})
+else()
+  list(APPEND qt_with_args -c++std c++14)
+endif()
 
 set(qt_skip_modules
   -skip qtactiveqt -skip qtconnectivity -skip qtspeech -skip qtdoc
@@ -23,6 +35,8 @@ ExternalProject_Add(qt5
   INSTALL_DIR ${ParamountSuperbuild_INSTALL_PREFIX}/qt5
   CONFIGURE_COMMAND ./configure --prefix=<INSTALL_DIR>
     ${qt_with_args} ${qt_skip_modules}
+  BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
+  INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
   BUILD_IN_SOURCE 1)
 
 list(APPEND ParamountSuperbuild_THIRDPARTYLIBS_ARGS

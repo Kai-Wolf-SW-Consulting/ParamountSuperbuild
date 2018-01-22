@@ -25,12 +25,12 @@ set(boost_with_args
   --with-thread)
 
 if(use_bat)
-  if(MSVC90)
-    set(_toolset "msvc-9.0")
-  elseif(MSVC10)
-    set(_toolset "msvc-10.0")
-  elseif(MSVC11)
+  if(MSVC11)
     set(_toolset "msvc-11.0")
+  elseif(MSVC12)
+    set(_toolset "msvc-12.0")
+  elseif(MSVC14)
+    set(_toolset "msvc-14.0")
   endif()
 
   list(APPEND boost_with_args "--layout=tagged" "toolset=${_toolset}")
