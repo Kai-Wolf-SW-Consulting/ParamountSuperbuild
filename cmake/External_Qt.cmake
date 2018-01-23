@@ -12,7 +12,7 @@ if(WIN32)
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(nmake REQUIRED_VARS NMAKE_EXECUTABLE)
   mark_as_advanced(NMAKE_EXECUTABLE)
-  
+
   set(CMAKE_MAKE_PROGRAM ${NMAKE_EXECUTABLE})
 else()
   list(APPEND qt_with_args -c++std c++14)
