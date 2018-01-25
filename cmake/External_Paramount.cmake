@@ -17,6 +17,8 @@ ExternalProject_Add(Paramount
     ${ParamountSuperbuild_THIRDPARTYLIBS_ARGS}
   DEPENDS ${deps})
 
+# CMake automatically generates a init cache script file for us, which we can
+# use to configure this subproject via add_subdirectory()
 ExternalProject_Get_property(Paramount TMP_DIR)
 set(paramount_cache_script ${TMP_DIR}/Paramount-cache-${CMAKE_BUILD_TYPE}.cmake
   CACHE FILEPATH "Path to initial cache file for configuring Paramount")

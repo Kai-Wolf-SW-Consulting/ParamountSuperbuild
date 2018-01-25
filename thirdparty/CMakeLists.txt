@@ -1,3 +1,7 @@
+# Copyright (c) 2017, Kai Wolf. All rights reserved.
+# Use of this source code is governed by a personal license that can be
+# found in the LICENSE file in the top directory.
+
 option(USE_SYSTEM_BOOST "Use installed version of Boost library" OFF)
 option(USE_SYSTEM_QT "Use installed version of Qt5 framework" OFF)
 option(USE_SYSTEM_GTEST "Use installed version of GTest library" OFF)
