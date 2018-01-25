@@ -6,8 +6,7 @@ cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 project(ParamountSuperbuild VERSION 1.0 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake
-  ${CMAKE_MODULE_PATH})
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Set up project defaults
 include(BuildType)
