@@ -12,6 +12,9 @@ endif()
 
 ExternalProject_Add(Paramount
   SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Paramount
+  CMAKE_CACHE_ARGS
+    ${ParamountSuperbuild_DEFAULT_ARGS}
+    ${ParamountSuperbuild_THIRDPARTYLIBS_ARGS}
   DEPENDS ${deps})
 
 ExternalProject_Get_property(Paramount TMP_DIR)

@@ -7,6 +7,7 @@ set(qt_with_args
   -no-ssl -no-openssl -no-securetransport -no-libproxy -no-sctp)
 
 if(WIN32)
+  set(config_script ./configure.bat)
   list(APPEND qt_with_args -platform win32-msvc)
   find_program(NMAKE_EXECUTABLE NAMES nmake.exe)
   include(FindPackageHandleStandardArgs)
@@ -15,6 +16,7 @@ if(WIN32)
   
   set(CMAKE_MAKE_PROGRAM ${NMAKE_EXECUTABLE})
 else()
+  set(config_script ./configure)
   list(APPEND qt_with_args -c++std c++14)
 endif()
 
@@ -33,7 +35,7 @@ ExternalProject_Add(qt5
   URL ${qt_url}
   URL_MD5 ${qt_md5}
   INSTALL_DIR ${ParamountSuperbuild_INSTALL_PREFIX}/qt5
-  CONFIGURE_COMMAND ./configure --prefix=<INSTALL_DIR>
+  CONFIGURE_COMMAND ${config_script} --prefix=<INSTALL_DIR>
     ${qt_with_args} ${qt_skip_modules}
   BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
   INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
