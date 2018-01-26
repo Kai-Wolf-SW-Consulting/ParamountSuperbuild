@@ -36,8 +36,8 @@ ExternalProject_Add(qt5
   URL_MD5 ${qt_md5}
   INSTALL_DIR ${ParamountSuperbuild_INSTALL_PREFIX}/qt5
   CONFIGURE_COMMAND ${config_script} --prefix=<INSTALL_DIR>
-    ${qt_with_args} ${qt_skip_modules}
-  BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
+    ${qt_with_args} ${qt_skip_modules} -verbose
+    BUILD_COMMAND ${CMAKE_MAKE_PROGRAM} VERBOSE=1
   INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
   BUILD_IN_SOURCE 1)
 
