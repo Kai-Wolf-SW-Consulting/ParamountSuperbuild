@@ -50,6 +50,5 @@ before_script:
   - cmake -DCMAKE_BUILD_TYPE=$CONFIG ..
 
 script:
-  - travis_wait 30 cmake --build . --target all
-  - ctest
-
+  - travis_wait 60 cmake --build . --target all
+  - ctest .
