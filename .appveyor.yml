@@ -10,11 +10,14 @@ configuration:
 matrix:
   fast_finish: true
 
+install:
+  - git submodule update --init --recursive
+
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - mkdir build
   - cd build
-  - cmake -DUSE_SYSTEM_BOOST=ON -DBOOST_ROOT="C:/Libraries/boost_1_60_0"
-      -DUSE_SYSTEM_QT=ON -DCMAKE_PREFIX_PATH="C:/Qt/5.10.0/msvc2015/lib/cmake"
+  - cmake -DUSE_SYSTEM_BOOST=ON -DBOOST_ROOT="C:/Libraries/boost_1_60_0" \
+    -DUSE_SYSTEM_QT=ON -DCMAKE_PREFIX_PATH="C:/Qt/5.10.0/msvc2015/lib/cmake"
   - cmake --build . --config %configuration%
   - ctest . --build-config %configuration%
