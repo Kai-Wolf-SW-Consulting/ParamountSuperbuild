@@ -5,6 +5,8 @@ jobs:
       - image: newproggie/paramount:1.0.1
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Configure ParamountSuperbuild
           command: |
@@ -12,18 +14,32 @@ jobs:
             git submodule update --init
             mkdir build && cd build
             cmake -DUSE_SYSTEM_QT=ON -DCMAKE_PREFIX_PATH=${QT5_DIR} ..
+      - persist_to_workspace:
+          root: .
+          paths: build/*
   build:
     docker:
-      - image: newproggie/paramount:1.0.0
+      - image: newproggie/paramount:1.0.1
     steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Build ParamountSuperbuild
           command: |
+            git submodule sync
+            git submodule update --init
             cmake --build build/
+      - persist_to_workspace:
+          root: .
+          paths: build/*
   test:
     docker:
-      - image: newproggie/paramount:1.0.0
+      - image: newproggie/paramount:1.0.1
     steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Test ParamountSuperbuild
           command: |
