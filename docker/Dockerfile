@@ -11,6 +11,7 @@ RUN apt-get -y install \
     g++-7 \
     gcc-7 \
     git \
+    libgl-dev \
     qt510-meta-full \
     wget
 

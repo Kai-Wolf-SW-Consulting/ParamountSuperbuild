@@ -2,7 +2,7 @@ version: 2
 jobs:
   configure:
     docker:
-      - image: newproggie/paramount:1.0.0
+      - image: newproggie/paramount:1.0.1
     steps:
       - checkout
       - run:
