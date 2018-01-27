@@ -9,12 +9,6 @@ set(qt_with_args
 if(WIN32)
   set(config_script ./configure.bat)
   list(APPEND qt_with_args -platform win32-msvc)
-  find_program(NMAKE_EXECUTABLE NAMES nmake.exe)
-  include(FindPackageHandleStandardArgs)
-  find_package_handle_standard_args(nmake REQUIRED_VARS NMAKE_EXECUTABLE)
-  mark_as_advanced(NMAKE_EXECUTABLE)
-
-  set(CMAKE_MAKE_PROGRAM ${NMAKE_EXECUTABLE})
 else()
   set(config_script ./configure)
   list(APPEND qt_with_args -c++std c++14)
@@ -37,8 +31,6 @@ ExternalProject_Add(qt5
   INSTALL_DIR ${ParamountSuperbuild_INSTALL_PREFIX}/qt5
   CONFIGURE_COMMAND ${config_script} --prefix=<INSTALL_DIR>
     ${qt_with_args} ${qt_skip_modules}
-    BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
-  INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
   BUILD_IN_SOURCE 1)
 
 list(APPEND ParamountSuperbuild_THIRDPARTYLIBS_ARGS
