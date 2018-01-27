@@ -1,0 +1,42 @@
+version: 2
+jobs:
+  configure:
+    docker:
+      - image: newproggie/paramount:1.0.0
+    steps:
+      - checkout
+      - run:
+          name: Configure ParamountSuperbuild
+          command: |
+            git submodule sync
+            git submodule update --init
+            mkdir build && cd build
+            cmake -DUSE_SYSTEM_QT=ON -DCMAKE_PREFIX_PATH=${QT5_DIR} ..
+  build:
+    docker:
+      - image: newproggie/paramount:1.0.0
+    steps:
+      - run:
+          name: Build ParamountSuperbuild
+          command: |
+            cmake --build build/
+  test:
+    docker:
+      - image: newproggie/paramount:1.0.0
+    steps:
+      - run:
+          name: Test ParamountSuperbuild
+          command: |
+            cd build/
+            ctest .
+workflows:
+  version: 2
+  configure-build-and-test:
+    jobs:
+      - configure
+      - build:
+          requires:
+            - configure
+      - test:
+          requires:
+            - build
